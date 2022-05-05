@@ -1,3 +1,4 @@
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import FILE.FILE;
 import FILE.DIR;
@@ -53,6 +54,35 @@ public class TEST {
             e.getMessage();
         }
     }
+
+    public  interface   TT1{
+         public  Integer  getTT(int a);
+    }
+
+    // 静态成员类可以被实例化,跟普通的没什么用
+    public  static class  tt{
+         public    Integer gettt(int a){return a;}
+    }
+    @Test
+    public void  test5(){
+        //可以理解为调用一个接口的方法返回一个值来传递，
+        //但是这个接口是我直接用匿名内部类实现的，并且重写了它的方法，并在生成后直接调用，保存直JVM
+        //成员接口和成员静态类不用在NEW 可以直接调用，而普通成员类则要
+        //如果调用的是成员静态类的非静态方法，则要NEW一下成员静态类
+
+        int a = new tt().gettt(6);
+        System.out.println( a);
+        System.out.println("***************");
+        a = new TEST.TT1(){
+            @Override
+            public Integer getTT( int b){
+                return b;
+            };
+        }.getTT(5);
+        System.out.println("*****************");
+        System.out.println(a);
+    }
+
 
 
 
